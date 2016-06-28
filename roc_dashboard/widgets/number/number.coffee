@@ -14,6 +14,12 @@ class Dashing.Number extends Dashing.Widget
   @accessor 'increasing?', ->
     if @get('increasing') then 'fa fa-arrow-up' else 'fa fa-arrow-down'
 
+  @accessor 'icon?', ->
+    skycons = new Skycons({"color": "white"});
+    skycons.add($(@get('node')).find('.forecast-icon').get(0), @get('icon'));
+    skycons.play();
+    #@get('icon')
+
   onData: (data) ->
     if data.status
       # clear existing "status-*" classes
