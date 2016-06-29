@@ -20,6 +20,11 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
   .value {
     color: $value-color;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
   }
 
   .change-rate {
