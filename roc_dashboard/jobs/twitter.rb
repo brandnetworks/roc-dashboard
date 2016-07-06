@@ -1,5 +1,6 @@
 require 'twitter'
 
+time = Time.new
 
 #### Get your twitter keys & secrets:
 #### https://dev.twitter.com/docs/auth/tokens-devtwittercom
@@ -19,6 +20,11 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
     if tweets
       tweets = tweets.map do |tweet|
         { name: tweet.user.name, body: tweet.text, avatar: tweet.user.profile_image_url_https, created_at: tweet.created_at}
+      end
+      i = 0
+      tweets.each do |tweet|
+        tweeted = "#{tweet[:created_at]}"[0..10]
+        today = "#{time.year}-#{format('%02d', time.month)}-#{format('%02d', time.day)}"
       end
       send_event('twitter_mentions', comments: tweets )
     end

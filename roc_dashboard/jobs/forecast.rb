@@ -1,15 +1,15 @@
 require 'json'
 require 'forecast_io'
 
-ForecastIO.api_key = 'fa2752a8131aa722e5d3f45570c0c11a'
+ForecastIO.api_key = ENV['FORECAST_KEY']
 
 SCHEDULER.every '120s' do
-  @forecast = ForecastIO.forecast(43.1598610, -77.6151030)
+  @forecast = ForecastIO.forecast(43.1599,-77.6151)
+  @currently = @forecast['currently']
   @hourly = @forecast['hourly']
-  @minutely = @forecast['minutely']
   @data = @hourly['data']
   @current_hour_data = @data[0]
-  send_event('temperature', { current: @current_hour_data["temperature"], increasing: increasing_temp, icon: @minutely["icon"]})
+  send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"]})
 end
 
 def increasing_temp

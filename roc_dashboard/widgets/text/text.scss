@@ -1,8 +1,6 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #ec663c;
-
 $title-color:       rgba(255, 255, 255, 0.7);
 $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
@@ -11,22 +9,34 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 .widget-text {
 
-  background-color: $background-color;
+  background-image:url("http://wallpapercave.com/wp/Me0Zt6c.jpg");
+  background-size: cover;
+
+  .album-art {
+    height: 185px;
+    width: 185px;
+    float: left;
+    padding-left: 30px;
+  }
+
+  .info {
+    width: 380px;
+    float: right;
+  }
 
   .title {
-    color: $title-color;
+    font-size: 30px;
+    color: #A0F94E;
+    text-align: left;
   }
 
-  .more-info {
-    color: $moreinfo-color;
+  .artist {
+    font-size: 25px;
+    text-align: left;
   }
 
-  .updated-at {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-
-  &.large h3 {
-    font-size: 65px;
+  .album {
+    font-size: 20px;
+    text-align: left;
   }
 }

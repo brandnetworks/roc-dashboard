@@ -4,7 +4,11 @@ class Dashing.Comments extends Dashing.Widget
     "“#{@get('current_comment')?.body}”"
 
   @accessor 'date', ->
-    "#{@get('current_comment.created_at')}".substr 0,10
+    date = "#{@get('current_comment.created_at')}".substr 0,10
+    year = date.substr 0,4
+    month = date.substr 5,2
+    day = date.substr 8
+    month + "/" + day + "/" + year
 
   ready: ->
     @currentIndex = 0

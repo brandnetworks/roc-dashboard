@@ -1,13 +1,27 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #dc5945;
+$background-color:  #000000;
 
 // ----------------------------------------------------------------------------
 // Widget-clock styles
 // ----------------------------------------------------------------------------
 .widget-clock {
-
   background-color: $background-color;
+}
 
+.clock-outer {
+  padding-top: 3.5em;
+  height: 100%;
+  background-image: url("http://www.softheme.com/wp-content/themes/twentyten/images/background.jpg");
+  background-size: cover;
+}
+
+.clock-inner {
+  margin: auto;
+  padding: 15px;
+  width: 50%;
+  border-radius: 25px;
+  background-image: url('http://redinafrica.com/wp-content/uploads/2015/03/gradient-red-simple-background-705766-2048x1536.jpg');
+  background-size: cover;
 }

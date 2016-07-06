@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #5bd75b;
+$background-color:  #ffa31a;
 $value-color:       #fff;
 
-$title-color:       rgba(255, 255, 255, 0.7);
+$title-color:       rgba(255, 255, 255, 0.9);
 $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
 // ----------------------------------------------------------------------------
@@ -13,15 +13,15 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 .widget-number {
 
   background-color: $background-color;
-
-  .title {
-    color: $title-color;
-  }
+  background-image: url("http://vignette3.wikia.nocookie.net/glee/images/d/da/Orange_Background_by_Vik_for_Stuff.png/revision/latest?cb=20140529222659");
+  background-size: cover;
 
   .value {
+    height: 55%;
     color: $value-color;
     display: flex;
     align-items: center;
+
   }
 
   .icon {
@@ -35,10 +35,6 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
   .more-info {
     color: $moreinfo-color;
-  }
-
-  .updated-at {
-    color: rgba(0, 0, 0, 0.3);
   }
 
 }
