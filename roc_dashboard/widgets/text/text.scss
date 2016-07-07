@@ -9,18 +9,24 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 .widget-text {
 
-  background-image:url("http://wallpapercave.com/wp/Me0Zt6c.jpg");
   background-size: cover;
+
+  .fading-background {
+    height: 100%;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .25)), to(rgba(0, 0, 0, .9)));
+  }
 
   .album-art {
     height: 185px;
     width: 185px;
+    margin-top: 80px;
     float: left;
     padding-left: 30px;
   }
 
   .info {
     width: 380px;
+    margin-top: 80px;
     float: right;
   }
 
@@ -37,6 +43,7 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
   .album {
     font-size: 20px;
+    color: #999999;
     text-align: left;
   }
 }

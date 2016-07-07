@@ -5,14 +5,35 @@ class Dashing.Clock extends Dashing.Widget
 
   startTime: =>
     today = new Date()
-
     h = today.getHours()
+    if h > 12
+      h-=12
     m = today.getMinutes()
     s = today.getSeconds()
     m = @formatTime(m)
     s = @formatTime(s)
-    @set('time', h + ":" + m + ":" + s)
-    @set('date', today.toDateString())
+    @set('time', h + ":" + m + ":" + s + " " + @ampm())
+    @set('date', @weekday() + " " + (today.getMonth()+1) + "." + today.getDate() + "." + (today.getFullYear()-2000))
+
+
+  weekday: () ->
+    today = new Date()
+    day = today.getDay()
+    switch day
+      when 0 then "sunday"
+      when 1 then "monday"
+      when 2 then "tuesday"
+      when 3 then "wednesday"
+      when 4 then "thursday"
+      when 5 then "friday"
+      when 6 then "saturday"
+
+  ampm: () ->
+    today = new Date()
+    if today.getHours() >= 12
+      "pm"
+    else
+      "am"
 
   formatTime: (i) ->
     if i < 10 then "0" + i else i

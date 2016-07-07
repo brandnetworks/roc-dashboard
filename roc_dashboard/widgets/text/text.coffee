@@ -1,4 +1,5 @@
 class Dashing.Text extends Dashing.Widget
+
   @accessor 'title?', ->
     "#{@get('title')}".toUpperCase()
 
@@ -9,4 +10,5 @@ class Dashing.Text extends Dashing.Widget
     "#{@get('album')}"
 
   @accessor 'album_art?', ->
-    "#{@get('album_art')}".substring(22)
+    $(@get('node')).css 'background-image', "url(#{@get('lastfm_art')})"
+    "#{@get('album_art')}"

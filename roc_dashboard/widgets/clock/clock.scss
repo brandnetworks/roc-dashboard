@@ -1,27 +1,53 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #000000;
+$background-color:  #eeeeee;
 
 // ----------------------------------------------------------------------------
 // Widget-clock styles
 // ----------------------------------------------------------------------------
 .widget-clock {
   background-color: $background-color;
-}
 
-.clock-outer {
-  padding-top: 3.5em;
-  height: 100%;
-  background-image: url("http://www.softheme.com/wp-content/themes/twentyten/images/background.jpg");
-  background-size: cover;
-}
+  .clock-outer {
+    padding-top: 1.75em;
+    height: 100%;
+    background-image: url('http://wallpoper.com/images/00/28/58/17/orange-background_00285817.jpg');
+    background-size: cover;
+  }
 
-.clock-inner {
-  margin: auto;
-  padding: 15px;
-  width: 50%;
-  border-radius: 25px;
-  background-image: url('http://redinafrica.com/wp-content/uploads/2015/03/gradient-red-simple-background-705766-2048x1536.jpg');
-  background-size: cover;
+  .bn-logo {
+    background-image: url('http://i.imgur.com/sAxThYH.png');
+    background-size: cover;
+    margin: auto;
+    height: 59px;
+    width: 107px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    height: 35px;
+    margin: auto;
+    vertical-align: middle;
+    border-radius: 25px, 25px, 0px, 0px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(230, 230, 230, 1)));
+  }
+
+  .clock-inner {
+    margin: auto;
+    margin-bottom: 0px;
+    padding: 15px;
+    background: #e6e6e6;
+  }
+
+  h1 {
+    color: black;
+    font-size: 45px;
+  }
+
+  h2 {
+    color: black;
+    margin-top: -20px;
+  }
 }

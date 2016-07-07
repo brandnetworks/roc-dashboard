@@ -18,15 +18,35 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
     tweets = twitter.search("#{search_term}")
 
     if tweets
+      #populate tweets
       tweets = tweets.map do |tweet|
-        { name: tweet.user.name, body: tweet.text, avatar: tweet.user.profile_image_url_https, created_at: tweet.created_at}
+        { name: tweet.user.name, body: tweet.text, avatar: tweet.user.profile_image_url_https, created_at: tweet.created_at, retweet: tweet.retweeted_status}
       end
-      i = 0
-      tweets.each do |tweet|
-        tweeted = "#{tweet[:created_at]}"[0..10]
+
+      #filter out retweets, multiple tweets from the same user, and tweets not from today
+      users = []
+      recent_tweets = []
+      j = 0
+      for i in 0..tweets.length-1
+        tweeted = "#{tweets[i][:created_at]}"[0..9]
         today = "#{time.year}-#{format('%02d', time.month)}-#{format('%02d', time.day)}"
+        user = "#{tweets[i][:name]}"
+        retweet = tweets[i][:retweet].nil?
+        tweets[i][:retweet] = ""
+        if tweeted == today && retweet && !users.include?(user)
+          recent_tweets[j] = tweets[i]
+          users.push(user)
+          j+=1
+        end
       end
-      send_event('twitter_mentions', comments: tweets )
+
+      #remove links from tweets
+      recent_tweets.each do |tweet|
+        str=tweet[:body].gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
+        tweet[:body]=str
+      end
+
+      send_event('twitter_mentions', comments: recent_tweets)
     end
   rescue Twitter::Error => e
     puts "Twitter Error: #{e}"

@@ -3,12 +3,11 @@ class Dashing.Comments extends Dashing.Widget
   @accessor 'quote', ->
     "“#{@get('current_comment')?.body}”"
 
-  @accessor 'date', ->
-    date = "#{@get('current_comment.created_at')}".substr 0,10
-    year = date.substr 0,4
-    month = date.substr 5,2
-    day = date.substr 8
-    month + "/" + day + "/" + year
+  @accessor 'tweets?', ->
+    if @get('comments').length != 0
+      ''
+    else
+      'No recent tweets from local food trucks'
 
   ready: ->
     @currentIndex = 0
@@ -24,9 +23,11 @@ class Dashing.Comments extends Dashing.Widget
 
   nextComment: =>
     comments = @get('comments')
-    if comments
+    if comments.length != 0
       @commentElem.fadeOut =>
         @currentIndex = (@currentIndex + 1) % comments.length
         @set 'current_comment', comments[@currentIndex]
         $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
         @commentElem.fadeIn()
+    else
+      $(@get('node')).css 'background-image', "url(https://pbs.twimg.com/profile_images/666407537084796928/YBGgi9BO.png)"

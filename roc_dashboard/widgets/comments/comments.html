@@ -2,14 +2,12 @@
 
   <h1 class="title" data-bind="title"></h1>
 
-  <div class="background">
-    <div class="comment-container">
-      <h3><span data-bind='current_comment.name' class="name"></span></h3>
-      <p class="comment" data-bind='quote'></p>
-      <p class="date" data-bind="date"></p>
-    </div>
+  <div class="comment-container">
+    <h3><span data-bind='current_comment.name' class="name"></span></h3>
+    <p class="comment" data-bind='quote'></p>
   </div>
+  <div class="no-tweets" data-bind='tweets?'></div>
 
-  <p class="more-info" data-bind=""></p>
+  <p class="more-info" data-bind=''></p>
 
 </div>

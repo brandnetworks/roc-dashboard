@@ -2,7 +2,7 @@
 // Sass declarations
 // ----------------------------------------------------------------------------
 $background-color:  #ffa31a;
-$value-color:       #fff;
+$value-color:       black;
 
 $title-color:       rgba(255, 255, 255, 0.9);
 $moreinfo-color:    rgba(255, 255, 255, 0.7);
@@ -12,19 +12,17 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 .widget-number {
 
-  background-color: $background-color;
-  background-image: url("http://vignette3.wikia.nocookie.net/glee/images/d/da/Orange_Background_by_Vik_for_Stuff.png/revision/latest?cb=20140529222659");
-  background-size: cover;
+  //background-image: url("http://3.bp.blogspot.com/-uDDn3yVu79o/TnvCkDIhCLI/AAAAAAAAAIo/YI-c6MFW7jk/s1600/rSWF+Pics-4.jpg");
+    //-webkit-filter: brightness(110%);
+    //filter: brightness(110%);
+  //background-size: cover;
 
   .value {
-    height: 55%;
+    margin-top: -50px;
+    margin-left: 55px;
     color: $value-color;
     display: flex;
     align-items: center;
-
-  }
-
-  .icon {
   }
 
   .change-rate {

@@ -1,6 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (5.0.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
     addressable (2.4.0)
     akami (1.3.1)
       gyoku (>= 0.4.0)
@@ -12,6 +17,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    concurrent-ruby (1.0.2)
     daemons (1.2.3)
     dashing (1.3.6)
       coffee-script (~> 2.2.0)
@@ -48,15 +54,25 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.0)
     httpi (2.4.2)
       rack
       socksify
+    i18n (0.7.0)
     json (1.8.3)
+    lastfm (1.27.1)
+      activesupport (>= 3.2.0)
+      httparty
+      xml-simple
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     mini_portile2 (2.1.0)
+    minitest (5.8.3)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     naught (1.1.0)
     nokogiri (1.6.8)
@@ -129,6 +145,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
@@ -136,6 +153,7 @@ PLATFORMS
 DEPENDENCIES
   dashing
   forecast_io
+  lastfm
   sonos
   twitter (>= 5.9.0)
 

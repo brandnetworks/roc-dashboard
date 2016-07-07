@@ -13,7 +13,7 @@ SCHEDULER.every '120s' do
 end
 
 def increasing_temp
-  current_temp = @current_hour_data["temperature"]
+  current_temp = @currently['temperature']
   sum = 0
   included = 0
   for i in 1..4

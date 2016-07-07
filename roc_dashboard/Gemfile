@@ -8,3 +8,5 @@ gem 'twitter', '>= 5.9.0'
 gem 'forecast_io'
 
 gem 'sonos'
+
+gem 'lastfm'
