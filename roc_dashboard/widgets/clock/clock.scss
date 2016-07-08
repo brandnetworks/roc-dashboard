@@ -1,23 +1,15 @@
-// ----------------------------------------------------------------------------
-// Sass declarations
-// ----------------------------------------------------------------------------
-$background-color:  #eeeeee;
-
-// ----------------------------------------------------------------------------
-// Widget-clock styles
-// ----------------------------------------------------------------------------
 .widget-clock {
-  background-color: $background-color;
+  background-color: #eeeeee;
 
   .clock-outer {
     padding-top: 1.75em;
     height: 100%;
-    background-image: url('http://wallpoper.com/images/00/28/58/17/orange-background_00285817.jpg');
+    background-image: url('clock-background.jpg');
     background-size: cover;
   }
 
   .bn-logo {
-    background-image: url('http://i.imgur.com/sAxThYH.png');
+    background-image: url('bn-logo.png');
     background-size: cover;
     margin: auto;
     height: 59px;

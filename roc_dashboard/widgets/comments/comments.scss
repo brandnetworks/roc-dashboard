@@ -1,21 +1,7 @@
-// ----------------------------------------------------------------------------
-// Sass declarations
-// ----------------------------------------------------------------------------
-//$background-color:  #4099FF;
-$background-color:  #000000;
-
-$title-color:       rgba(255, 255, 255, 0.7);
-$moreinfo-color:    rgba(255, 255, 255, 0.7);
-
-// ----------------------------------------------------------------------------
-// Widget-comment styles
-// ----------------------------------------------------------------------------
-
 .widget-comments {
-
-  background-color: $background-color;
   background-repeat: no-repeat;
   background-size: cover;
+  letter-spacing: .1em;
 
   .outer {
     height: 100%;
@@ -24,28 +10,30 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
   }
 
   .title {
-    color: $title-color;
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 15px;
   }
 
   .name {
     padding-left: 5px;
     font-size: 35px;
+
   }
 
   .comment-container {
     display: none;
-    margin-top: 50px;
+    padding: 10px;
   }
 
   .no-tweets {
-    margin-top: -20px;
-    color: #222222;
+    margin-top: -30px;
+    color: #333333;
     font-size: 25px;
+    font-weight: 500;
   }
 
   .more-info {
-    color: $moreinfo-color;
+    color: rgba(255, 255, 255, 0.7);
   }
 
 }

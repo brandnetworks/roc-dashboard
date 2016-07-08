@@ -3,15 +3,6 @@ require 'forecast_io'
 
 ForecastIO.api_key = ENV['FORECAST_KEY']
 
-SCHEDULER.every '120s' do
-  @forecast = ForecastIO.forecast(43.1599,-77.6151)
-  @currently = @forecast['currently']
-  @hourly = @forecast['hourly']
-  @data = @hourly['data']
-  @current_hour_data = @data[0]
-  send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"]})
-end
-
 def increasing_temp
   current_temp = @currently['temperature']
   sum = 0
@@ -25,4 +16,12 @@ def increasing_temp
   end
   average_temp = sum/included
   average_temp > current_temp
+end
+
+SCHEDULER.every '120s' do
+  @forecast = ForecastIO.forecast(43.159861,-77.615103)
+  @currently = @forecast['currently']
+  @data = @forecast['hourly']['data']
+  send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"]})
+  foo = increasing_temp
 end

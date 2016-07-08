@@ -1,14 +1,17 @@
 class Dashing.Text extends Dashing.Widget
 
   @accessor 'title?', ->
-    "#{@get('title')}".toUpperCase()
+    title = "#{@get('title')}".toUpperCase()
 
   @accessor 'artist?', ->
-    "#{@get('artist')}"
+    artist = "#{@get('artist')}"
 
   @accessor 'album?', ->
     "#{@get('album')}"
 
   @accessor 'album_art?', ->
-    $(@get('node')).css 'background-image', "url(#{@get('lastfm_art')})"
+    url = @get('lastfm_art')
+    if url == ""
+      url = "assets/sonos-default-background.jpg"
+    $(@get('node')).css 'background-image', "url(#{url})"
     "#{@get('album_art')}"

@@ -1,38 +1,34 @@
-// ----------------------------------------------------------------------------
-// Sass declarations
-// ----------------------------------------------------------------------------
-$background-color:  #ffa31a;
-$value-color:       black;
-
-$title-color:       rgba(255, 255, 255, 0.9);
-$moreinfo-color:    rgba(255, 255, 255, 0.7);
-
-// ----------------------------------------------------------------------------
-// Widget-number styles
-// ----------------------------------------------------------------------------
 .widget-number {
-
-  //background-image: url("http://3.bp.blogspot.com/-uDDn3yVu79o/TnvCkDIhCLI/AAAAAAAAAIo/YI-c6MFW7jk/s1600/rSWF+Pics-4.jpg");
-    //-webkit-filter: brightness(110%);
-    //filter: brightness(110%);
-  //background-size: cover;
-
+  
   .value {
-    margin-top: -50px;
-    margin-left: 55px;
-    color: $value-color;
+    margin-left: 30px;
+    margin-top: 5px;
+    color: black;
     display: flex;
     align-items: center;
   }
 
+  .icon {
+    height: 150px;
+  }
+
+  .forecast-icon {
+    margin-right: -15px;
+  }
+
   .change-rate {
     font-weight: 500;
-    font-size: 30px;
-    color: $value-color;
+    font-size: 60px;
+    color: black;
+  }
+
+  .location {
+    color: black;
+    font-size: 45px;
   }
 
   .more-info {
-    color: $moreinfo-color;
+    color: rgba(255, 255, 255, 0.7);
   }
 
 }

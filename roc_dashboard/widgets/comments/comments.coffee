@@ -19,15 +19,19 @@ class Dashing.Comments extends Dashing.Widget
     @currentIndex = 0
 
   startCarousel: ->
-    setInterval(@nextComment, 8000)
+    setInterval(@nextComment, 10000)
 
   nextComment: =>
     comments = @get('comments')
-    if comments.length != 0
+    if comments.length > 1
       @commentElem.fadeOut =>
         @currentIndex = (@currentIndex + 1) % comments.length
         @set 'current_comment', comments[@currentIndex]
         $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
         @commentElem.fadeIn()
+    else if comments.length = 1
+      @set 'current_comment', comments[@currentIndex]
+      $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
+      @commentElem.fadeIn()
     else
-      $(@get('node')).css 'background-image', "url(https://pbs.twimg.com/profile_images/666407537084796928/YBGgi9BO.png)"
+      $(@get('node')).css 'background-image', "url('assets/twitter-default-background.png')"

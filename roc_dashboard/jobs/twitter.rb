@@ -13,7 +13,7 @@ end
 
 search_term = 'state from:ehmeals, OR from:roccitysammich, OR from:the_bentobox, OR from:stingrayfusion, OR from:macarollinroc, OR from:meatballtruckco, OR from:papagigs, OR from:bricknmotor, OR from:chowderup, OR from:martysmeats, OR from:wrapsonwheels, OR from:lepetitpoutine, OR from:tuscanwoodfired, OR from:MidnightSmokin, OR from:TheBrunchBoxRoc, OR from:meatthepress, OR from:robskabobsny, OR from:ChefsCaterROC'
 
-SCHEDULER.every '10m', :first_in => 0 do |job|
+SCHEDULER.every '600s', :first_in => 0 do |job|
   begin
     tweets = twitter.search("#{search_term}")
 
@@ -31,9 +31,9 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
         tweeted = "#{tweets[i][:created_at]}"[0..9]
         today = "#{time.year}-#{format('%02d', time.month)}-#{format('%02d', time.day)}"
         user = "#{tweets[i][:name]}"
-        retweet = tweets[i][:retweet].nil?
+        retweet = !tweets[i][:retweet].nil?
         tweets[i][:retweet] = ""
-        if tweeted == today && retweet && !users.include?(user)
+        if tweeted == today && !retweet && !users.include?(user)
           recent_tweets[j] = tweets[i]
           users.push(user)
           j+=1
@@ -45,9 +45,9 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
         str=tweet[:body].gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
         tweet[:body]=str
       end
-
       send_event('twitter_mentions', comments: recent_tweets)
     end
+
   rescue Twitter::Error => e
     puts "Twitter Error: #{e}"
     puts "\e[33mFor the twitter widget to work, you need to put in your twitter API keys in the jobs/twitter.rb file.\e[0m"
