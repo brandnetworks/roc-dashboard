@@ -1,7 +1,7 @@
 .widget-comments {
   background-repeat: no-repeat;
   background-size: cover;
-  letter-spacing: .1em;
+  background-color: white;
 
   .outer {
     height: 100%;
@@ -16,24 +16,25 @@
 
   .name {
     padding-left: 5px;
-    font-size: 35px;
-
+    font-size: 65px;
+    letter-spacing: .05em;
   }
 
   .comment-container {
+    font-size: 30px;
     display: none;
-    padding: 10px;
+    padding: 40px;
   }
 
   .no-tweets {
-    margin-top: -30px;
-    color: #333333;
-    font-size: 25px;
+    margin-top: 180px;
+    color: #222222;
+    font-size: 65px;
     font-weight: 500;
   }
 
   .more-info {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
   }
 
 }

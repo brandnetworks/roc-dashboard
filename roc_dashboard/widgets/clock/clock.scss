@@ -1,45 +1,30 @@
 .widget-clock {
-  background-color: #eeeeee;
 
-  .clock-outer {
-    padding-top: 1.75em;
-    height: 100%;
-    background-image: url('clock-background.jpg');
-    background-size: cover;
-  }
+  background-color: white;
 
-  .bn-logo {
-    background-image: url('bn-logo.png');
+  .header {
+    background-image: url('bnheader.png');
     background-size: cover;
     margin: auto;
-    height: 59px;
-    width: 107px;
-    margin-top: 25px;
-    margin-bottom: 20px;
-  }
-
-  .tab {
-    height: 35px;
-    margin: auto;
-    vertical-align: middle;
-    border-radius: 25px, 25px, 0px, 0px;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(230, 230, 230, 1)));
+    height: 300px;
   }
 
   .clock-inner {
+    height: 225px;
     margin: auto;
-    margin-bottom: 0px;
-    padding: 15px;
-    background: #e6e6e6;
+    padding-top: 15px;
   }
 
   h1 {
+    margin-bottom: -10px;
     color: black;
-    font-size: 45px;
+    font-size: 75px;
+    text-transform: uppercase;
   }
 
   h2 {
+    margin-top: -10px;
     color: black;
-    margin-top: -20px;
+    font-size: 95px;
   }
 }

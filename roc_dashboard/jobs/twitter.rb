@@ -45,9 +45,8 @@ SCHEDULER.every '600s', :first_in => 0 do |job|
         str=tweet[:body].gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
         tweet[:body]=str
       end
-      send_event('twitter_mentions', comments: recent_tweets)
+      send_event('twitter_mentions', {comments: recent_tweets, length: recent_tweets.length})
     end
-
   rescue Twitter::Error => e
     puts "Twitter Error: #{e}"
     puts "\e[33mFor the twitter widget to work, you need to put in your twitter API keys in the jobs/twitter.rb file.\e[0m"

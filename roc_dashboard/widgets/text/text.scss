@@ -8,24 +8,24 @@
   }
 
   .album-art {
-    height: 185px;
-    width: 185px;
+    height: 300px;
+    width: 300px;
     float: left;
     padding-left: 30px;
-    margin-top: 87.5px;
+    margin-top: 112.5px;
   }
 
   .info {
     float: left;
-    width: 360px;
-    padding-left: 10px;
-    margin-top: 125px;
+    width: 570px;
+    padding-left: 20px;
+    margin-top: 174px;
   }
 
   .title {
-    margin-top: -5px;
-    margin-bottom: -5px;
-    font-size: 40px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    font-size: 65px;
     color: #8aef2b;
     text-align: left;
     white-space: nowrap;
@@ -34,9 +34,9 @@
   }
 
   .artist {
-    margin-top: -5px;
-    margin-bottom: -5px;
-    font-size: 30px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    font-size: 47px;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
@@ -44,9 +44,9 @@
   }
 
   .album {
-    margin-top: -5px;
-    margin-bottom: -5px;
-    font-size: 25px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    font-size: 42px;
     color: #999999;
     text-align: left;
     white-space: nowrap;

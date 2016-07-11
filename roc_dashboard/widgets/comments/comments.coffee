@@ -4,10 +4,14 @@ class Dashing.Comments extends Dashing.Widget
     "“#{@get('current_comment')?.body}”"
 
   @accessor 'tweets?', ->
-    if @get('comments').length != 0
+    if @get('length') != 0
+      @outer = $(@node).find('.outer')
+      @outer.css 'background-image', "-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .25)), to(rgba(0, 0, 0, 0.9)))"
       ''
     else
-      'No recent tweets from local food trucks'
+      @outer = $(@node).find('.outer')
+      @outer.css 'background-image', "-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .1)), to(rgba(0, 0, 0, .1)))"
+      'No nearby food trucks'
 
   ready: ->
     @currentIndex = 0
@@ -19,19 +23,20 @@ class Dashing.Comments extends Dashing.Widget
     @currentIndex = 0
 
   startCarousel: ->
-    setInterval(@nextComment, 10000)
+    setInterval(@nextComment, 3000)
 
   nextComment: =>
-    comments = @get('comments')
-    if comments.length > 1
+    @comments = @get('comments')
+    @length = @get('length')
+    if @length > 1
       @commentElem.fadeOut =>
-        @currentIndex = (@currentIndex + 1) % comments.length
-        @set 'current_comment', comments[@currentIndex]
+        @currentIndex = (@currentIndex + 1) % @comments.length
+        @set 'current_comment', @comments[@currentIndex]
         $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
         @commentElem.fadeIn()
-    else if comments.length = 1
-      @set 'current_comment', comments[@currentIndex]
+    else if @length == 1
+      @set 'current_comment', @comments[@currentIndex]
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
-      $(@get('node')).css 'background-image', "url('assets/twitter-default-background.png')"
+      $(@get('node')).css 'background-image', "url('assets/twitterbackground.png')"
