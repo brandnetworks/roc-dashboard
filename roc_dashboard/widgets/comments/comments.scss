@@ -4,14 +4,9 @@
   background-color: white;
 
   .outer {
-    height: 100%;
-    padding-top: 4em;
+    height: 536px;
+    overflow: hidden;
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .25)), to(rgba(0, 0, 0, .9)));
-  }
-
-  .title {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 15px;
   }
 
   .name {
@@ -24,17 +19,13 @@
     font-size: 30px;
     display: none;
     padding: 40px;
+    padding-top: 140px;
   }
 
   .no-tweets {
-    margin-top: 180px;
-    color: #222222;
+    padding-top: 200px;
+    padding-left: 268px;
+    color: #1e7a85;
     font-size: 65px;
-    font-weight: 500;
   }
-
-  .more-info {
-    color: rgba(255, 255, 255, 1);
-  }
-
 }
