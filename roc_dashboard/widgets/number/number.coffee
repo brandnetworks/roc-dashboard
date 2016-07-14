@@ -2,16 +2,16 @@ class Dashing.Number extends Dashing.Widget
 
   color: () ->
     temp = @get('current')
-    if temp > 85
-      "#FA6900"
+    if temp > 80
+      "#FF901D"
     else if temp > 65
-      "#F38630"
+      "#FFDF3A"
     else if temp > 50
-      "#E0E4CC"
+      "#ACF371"
     else if temp > 30
-      "#A7DBD8"
+      "#BBFFFF"
     else
-      "#69D2E7"
+      "#73CEFF"
 
   @accessor 'current', Dashing.AnimatedValue
 

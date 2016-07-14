@@ -1,10 +1,14 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
 .widget-text {
 
   background-size: cover;
 
   .fading-background {
     height: 100%;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .25)), to(rgba(0, 0, 0, .9)));
+    background-image: -webkit-linear-gradient( rgba(0, 0, 0, .6), rgba(0, 0, 0, .75), rgba(0, 0, 0, .8), rgba(0, 0, 0, .75), rgba(0, 0, 0, .6));
   }
 
   .album-art {
@@ -13,45 +17,59 @@
     float: left;
     padding-left: 30px;
     margin-top: 112.5px;
-    object-fit: fill;
   }
 
   .info {
-    float: left;
+    width: 920px;
+    height: 300px;
+    position: absolute;
+  }
+
+  .title-box {
+    margin-left: 355px;
+    margin-top: 155px;
     width: 570px;
-    padding-left: 20px;
-    margin-top: 174px;
+    height: 100px;
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .title {
-    margin-top: -10px;
-    margin-bottom: -10px;
+    position: absolute;
     font-size: 60px;
     color: #8aef2b;
-    text-align: left;
+  }
+
+  .artist-box {
+    margin-left: 355px;
+    margin-top: 215px;
+    width: 570px;
+    height: 100px;
+    position: absolute;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .artist {
-    margin-top: -10px;
-    margin-bottom: -10px;
-    font-size: 47px;
-    text-align: left;
+    position: absolute;
+    font-size: 53px;
+  }
+
+  .album-box {
+    margin-left: 355px;
+    margin-top: 273px;
+    width: 570px;
+    height: 100px;
+    position: absolute;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .album {
-    margin-top: -10px;
-    margin-bottom: -10px;
+    position: absolute;
     font-size: 42px;
     color: #999999;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
+
 }

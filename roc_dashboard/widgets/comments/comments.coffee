@@ -6,11 +6,11 @@ class Dashing.Comments extends Dashing.Widget
   @accessor 'tweets?', ->
     if @get('length') != 0
       @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .25)), to(rgba(0, 0, 0, 0.9)))"
+      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
       ''
     else
       @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)))"
+      @outer.css 'background-image', "rgba(0, 0, 0, 0)"
       'Closed'
 
   ready: ->
