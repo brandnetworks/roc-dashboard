@@ -23,5 +23,4 @@ SCHEDULER.every '120s' do
   @currently = @forecast['currently']
   @data = @forecast['hourly']['data']
   send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"]})
-  foo = increasing_temp
 end

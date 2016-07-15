@@ -39,4 +39,4 @@ class Dashing.Comments extends Dashing.Widget
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
-      $(@get('node')).css 'background-image', "url('assets/food-truck-blue.png')"
+      $(@get('node')).css 'background-image', "url('assets/food-truck-2.png')"
