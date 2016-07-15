@@ -20,9 +20,9 @@ class Dashing.Number extends Dashing.Widget
 
   @accessor 'icon?', ->
     $(@get('node')).css 'background-color', @color()
-    skycons = new Skycons({"color": "black"});
-    skycons.add($(@get('node')).find('.forecast-icon').get(0), @get('icon'));
-    skycons.play();
+    skycons = new Skycons({"color": "black"})
+    skycons.add($(@get('node')).find('.forecast-icon').get(0), @get('icon'))
+    skycons.play()
 
   onData: (data) ->
     if data.status

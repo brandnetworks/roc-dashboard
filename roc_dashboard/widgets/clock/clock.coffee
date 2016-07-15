@@ -6,14 +6,11 @@ class Dashing.Clock extends Dashing.Widget
   startTime: =>
     today = new Date()
     h = today.getHours()
-    if h > 12
-      h-=12
-    m = today.getMinutes()
-    s = today.getSeconds()
-    m = @formatTime(m)
-    s = @formatTime(s)
-    @set('time', h + ":" + m + ":" + s + " " + @ampm())
-    @set('date', @weekday() + " " + (today.getMonth()+1) + "." + today.getDate() + "." + (today.getFullYear()-2000))
+    if h > 12 then h-=12
+    m = @formatTime(today.getMinutes())
+    s = @formatTime(today.getSeconds())
+    @set 'time', "#{h}:#{m}:#{s} #{@ampm()}"
+    @set 'date', "#{@weekday()} #{today.getMonth()+1}.#{today.getDate()}.#{today.getFullYear()-2000}"
 
 
   weekday: () ->
@@ -30,10 +27,7 @@ class Dashing.Clock extends Dashing.Widget
 
   ampm: () ->
     today = new Date()
-    if today.getHours() >= 12
-      "pm"
-    else
-      "am"
+    if today.getHours() >= 12 then "pm" else "am"
 
   formatTime: (i) ->
     if i < 10 then "0" + i else i

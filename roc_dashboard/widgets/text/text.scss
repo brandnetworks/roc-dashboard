@@ -1,6 +1,3 @@
-::-webkit-scrollbar {
-  display: none;
-}
 
 .widget-text {
 
@@ -25,14 +22,17 @@
     position: absolute;
   }
 
-  .title-box {
-    margin-left: 355px;
-    margin-top: 155px;
+  .box {
     width: 570px;
     height: 100px;
     position: absolute;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  .title-box {
+    margin-left: 355px;
+    margin-top: 155px;
   }
 
   .title {
@@ -44,11 +44,6 @@
   .artist-box {
     margin-left: 355px;
     margin-top: 215px;
-    width: 570px;
-    height: 100px;
-    position: absolute;
-    white-space: nowrap;
-    overflow: hidden;
   }
 
   .artist {
@@ -59,11 +54,6 @@
   .album-box {
     margin-left: 355px;
     margin-top: 273px;
-    width: 570px;
-    height: 100px;
-    position: absolute;
-    white-space: nowrap;
-    overflow: hidden;
   }
 
   .album {

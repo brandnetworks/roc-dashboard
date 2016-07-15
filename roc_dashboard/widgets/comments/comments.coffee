@@ -26,16 +26,16 @@ class Dashing.Comments extends Dashing.Widget
     setInterval(@nextComment, 20000)
 
   nextComment: =>
-    @comments = @get('comments')
-    @length = @get('length')
-    if @length > 1
+    comments = @get('comments')
+    length = @get('length')
+    if length > 1
       @commentElem.fadeOut =>
-        @currentIndex = (@currentIndex + 1) % @comments.length
-        @set 'current_comment', @comments[@currentIndex]
+        @currentIndex = (@currentIndex + 1) % comments.length
+        @set 'current_comment', comments[@currentIndex]
         $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
         @commentElem.fadeIn()
-    else if @length == 1
-      @set 'current_comment', @comments[@currentIndex]
+    else if length == 1
+      @set 'current_comment', comments[@currentIndex]
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
