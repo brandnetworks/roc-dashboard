@@ -1,25 +1,41 @@
 class Dashing.Text extends Dashing.Widget
 
+  prev_title = ""
+
   @accessor 'title?', ->
-    title = "#{@get('title')}".toUpperCase()
+    "#{@get('title')}".toUpperCase()
 
   @accessor 'artist?', ->
-    artist = "#{@get('artist')}"
+    "#{@get('artist')}"
 
   @accessor 'album?', ->
     "#{@get('album')}"
 
   @accessor 'album_art?', ->
-    $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
-    url = @get('lastfm_art')
-    if url != "" && url != "https://secure-img2.last.fm/i/u/c1cd8e1f59364c6fbd177cf16f70039c.png"
-      $(@get('node')).css 'background-image', "url(#{url})"
-    "#{@get('album_art')}"
+    if @get('music')
+      # align items and set background
+      $(@get('node')).find('.album-art').css 'display', 'inline'
+      $(@get('node')).find('.title-box').css 'margin-top', '155px'
+      $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
+      url = @get('lastfm_art')
+      if url != "" && url.substring(0,18) != "https://secure-img"
+        $(@get('node')).css 'background-image', "url(#{url})"
+      # determine if there is an album art image
+      if "#{@get('album_art')}" == ""
+        "/assets/default-album-art.png"
+      else
+        "#{@get('album_art')}"
+    else
+      # align items when no music is playing
+      $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
+      $(@get('node')).find('.album-art').css 'display', 'none'
+      $(@get('node')).find('.title-box').css 'margin-top', '220px'
+      ""
 
   fixSpace: (num) ->
     if num >= 0 then num else 0
 
-  onData: (data)->
+  shift: () ->
     # make the title, author, and album name scroll automatically
     # declarations
     box_width = 570
@@ -37,14 +53,14 @@ class Dashing.Text extends Dashing.Widget
     artist_location = 0
     album_location = 0
     forward = true
-    wait = 50
-    setInterval ->
+    wait = 150
+    @interval = setInterval ->
       # move text forward
       if forward && wait == 0
         title.css "margin-left", title_location-=title_space
         artist.css "margin-left", artist_location-=artist_space
         album.css "margin-left", album_location-=album_space
-        if title_location <= box_width-title_width and artist_location <= box_width-artist_width and album_location <= box_width-album_width
+        if title_location <= box_width-title_width && artist_location <= box_width-artist_width && album_location <= box_width-album_width
           forward = false
           wait = 50
       # move text back
@@ -52,10 +68,18 @@ class Dashing.Text extends Dashing.Widget
         title.css "margin-left", title_location+=title_space
         artist.css "margin-left", artist_location+=artist_space
         album.css "margin-left", album_location+=album_space
-        if title_location >= 0 and artist_location >= 0 and album_location >= 0
+        if title_location >= 0 && artist_location >= 0 && album_location >= 0
           forward = true
-          wait = 50
-      # wait 2.5 seconds after movements
+          wait = 150
+      # pause scrolling after movements
       else
         wait--
     , 50
+
+  onData: (data) ->
+    if @get('music') && prev_title != "#{@get('title')}"
+      prev_title = "#{@get('title')}"
+      clearInterval @interval
+      @shift()
+    else if prev_title != "#{@get('title')}"
+      clearInterval @interval

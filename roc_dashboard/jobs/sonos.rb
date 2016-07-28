@@ -11,12 +11,20 @@ token = lastfm.auth.get_token
 
 SCHEDULER.every '1s' do
   @current = speaker.now_playing
-  if @playing[:title] != @current[:title]
+  if @current != {} && @playing[:title] != @current[:title]
     @playing = @current
-    @playing[:album_art] = "http://#{@playing[:album_art].rpartition('http://').last}"
+    if @playing[:album_art] != ""
+      @playing[:album_art] = "http://#{@playing[:album_art].rpartition('http://').last}"
+    end
     @info = lastfm.artist.get_info(artist: @playing[:artist])
     @images = @info['image'].select {|a| a['size'] == "mega"}
     @playing['lastfm_art'] = "#{@images[0]['content']}"
-    send_event('sonos', @playing)
+    @playing[:music] = true
+  else
+    @playing[:title] = "No Music"
+    @playing[:artist] = ""
+    @playing[:album] = ""
+    @playing[:music] = false
   end
+  send_event('sonos', @playing)
 end

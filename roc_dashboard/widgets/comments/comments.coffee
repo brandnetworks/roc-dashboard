@@ -1,7 +1,8 @@
 class Dashing.Comments extends Dashing.Widget
 
   @accessor 'quote', ->
-    "“#{@get('current_comment')?.body}”"
+    comment = "#{@get('current_comment')?.body}".trim()
+    "\"#{comment}\""
 
   @accessor 'tweets?', ->
     if @get('length') != 0
@@ -21,6 +22,9 @@ class Dashing.Comments extends Dashing.Widget
 
   onData: (data) ->
     @currentIndex = 0
+    @commentElem = $(@node).find('.comment-container')
+    @nextComment()
+    @startCarousel()
 
   startCarousel: ->
     setInterval(@nextComment, 20000)
@@ -39,4 +43,4 @@ class Dashing.Comments extends Dashing.Widget
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
-      $(@get('node')).css 'background-image', "url('assets/food-truck-2.png')"
+      $(@get('node')).css 'background-image', "url('assets/food-truck.png')"
