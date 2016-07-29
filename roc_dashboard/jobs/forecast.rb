@@ -1,8 +1,6 @@
 require 'json'
 require 'forecast_io'
 
-ForecastIO.api_key = ENV['FORECAST_KEY']
-
 def increasing_temp
   current_temp = @currently['temperature']
   sum = 0
@@ -18,9 +16,16 @@ def increasing_temp
   average_temp > current_temp
 end
 
-SCHEDULER.every '120s' do
+def send_info
   @forecast = ForecastIO.forecast(43.159861,-77.615103)
   @currently = @forecast['currently']
   @data = @forecast['hourly']['data']
   send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"]})
+end
+
+ForecastIO.api_key = ENV['FORECAST_KEY']
+send_info
+
+SCHEDULER.every '120s' do
+  send_info
 end
