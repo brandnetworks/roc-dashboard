@@ -24,7 +24,6 @@ class Dashing.Comments extends Dashing.Widget
     @currentIndex = 0
     @commentElem = $(@node).find('.comment-container')
     @nextComment()
-    @startCarousel()
 
   startCarousel: ->
     setInterval(@nextComment, 20000)
