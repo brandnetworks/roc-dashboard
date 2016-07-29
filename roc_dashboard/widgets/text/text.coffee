@@ -1,15 +1,13 @@
 class Dashing.Text extends Dashing.Widget
 
-  prev_title = ""
-
   @accessor 'title?', ->
-    "#{@get('title')}".toUpperCase()
+    "#{@get('title')} more text more text".toUpperCase()
 
   @accessor 'artist?', ->
-    "#{@get('artist')}"
+    "#{@get('artist')} more text more text"
 
   @accessor 'album?', ->
-    "#{@get('album')}"
+    "#{@get('album')} more text more text"
 
   @accessor 'album_art?', ->
     if @get('music')
@@ -76,10 +74,20 @@ class Dashing.Text extends Dashing.Widget
         wait--
     , 50
 
+  ready: ->
+    @prev_title = ""
+
   onData: (data) ->
-    if @get('music') && prev_title != "#{@get('title')}"
-      prev_title = "#{@get('title')}"
+    @title = "#{@get('title')}"
+    if !@get('music')
+      $(@get('node')).find('.title').css "margin-left", 0
+      $(@get('node')).find('.artist').css "margin-left", 0
+      $(@get('node')).find('.album').css "margin-left", 0
+      clearInterval @interval
+    else if @title != @prev_title
+      $(@get('node')).find('.title').css "margin-left", 0
+      $(@get('node')).find('.artist').css "margin-left", 0
+      $(@get('node')).find('.album').css "margin-left", 0
+      @prev_title = @title
       clearInterval @interval
       @shift()
-    else if prev_title != "#{@get('title')}"
-      clearInterval @interval
