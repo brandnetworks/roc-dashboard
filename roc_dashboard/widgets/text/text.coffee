@@ -1,13 +1,13 @@
 class Dashing.Text extends Dashing.Widget
 
   @accessor 'title?', ->
-    "#{@get('title')} more text more text".toUpperCase()
+    "#{@get('title')}".toUpperCase()
 
   @accessor 'artist?', ->
-    "#{@get('artist')} more text more text"
+    "#{@get('artist')}"
 
   @accessor 'album?', ->
-    "#{@get('album')} more text more text"
+    "#{@get('album')}"
 
   @accessor 'album_art?', ->
     if @get('music')
