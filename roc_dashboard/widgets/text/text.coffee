@@ -83,6 +83,7 @@ class Dashing.Text extends Dashing.Widget
       $(@get('node')).find('.title').css "margin-left", 0
       $(@get('node')).find('.artist').css "margin-left", 0
       $(@get('node')).find('.album').css "margin-left", 0
+      @prev_title = ""
       clearInterval @interval
     else if @title != @prev_title
       $(@get('node')).find('.title').css "margin-left", 0
