@@ -20,6 +20,8 @@ SCHEDULER.every '1s' do
     @images = @info['image'].select {|a| a['size'] == "mega"}
     @playing['lastfm_art'] = "#{@images[0]['content']}"
     @playing[:music] = true
+  elsif @playing[:title] == @current[:title]
+    #continue playing
   else
     @playing[:title] = "No Music"
     @playing[:artist] = ""
