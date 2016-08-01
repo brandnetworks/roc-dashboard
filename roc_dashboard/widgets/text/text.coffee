@@ -13,16 +13,16 @@ class Dashing.Text extends Dashing.Widget
     if @get('music')
       # align items and set background
       $(@get('node')).find('.album-art').css 'display', 'inline'
-      $(@get('node')).find('.title-box').css 'margin-top', '155px'
+      $(@get('node')).find('.title-box').css 'margin-top', '169px'
       $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
       url = @get('lastfm_art')
       if url != "" && url.substring(0,18) != "https://secure-img"
         $(@get('node')).css 'background-image', "url(#{url})"
       # determine if there is an album art image
-      if "#{@get('album_art')}" == ""
-        "/assets/default-album-art.png"
-      else
+      if "#{@get('album_art')}" != ""
         "#{@get('album_art')}"
+      else
+        "/assets/default-album-art.png"
     else
       # align items when no music is playing
       $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
@@ -34,8 +34,6 @@ class Dashing.Text extends Dashing.Widget
     if num >= 0 then num else 0
 
   shift: () ->
-    # make the title, author, and album name scroll automatically
-    # declarations
     box_width = 570
     title = $(@get('node')).find('.title')
     artist = $(@get('node')).find('.artist')
@@ -74,21 +72,11 @@ class Dashing.Text extends Dashing.Widget
         wait--
     , 50
 
-  ready: ->
-    @prev_title = ""
-
   onData: (data) ->
-    @title = "#{@get('title')}"
-    if !@get('music')
-      $(@get('node')).find('.title').css "margin-left", 0
-      $(@get('node')).find('.artist').css "margin-left", 0
-      $(@get('node')).find('.album').css "margin-left", 0
-      @prev_title = ""
-      clearInterval @interval
-    else if @title != @prev_title
-      $(@get('node')).find('.title').css "margin-left", 0
-      $(@get('node')).find('.artist').css "margin-left", 0
-      $(@get('node')).find('.album').css "margin-left", 0
-      @prev_title = @title
-      clearInterval @interval
+    # reset scrolling
+    $(@get('node')).find('.title').css "margin-left", 0
+    $(@get('node')).find('.artist').css "margin-left", 0
+    $(@get('node')).find('.album').css "margin-left", 0
+    clearInterval @interval
+    if @get('music')
       @shift()
