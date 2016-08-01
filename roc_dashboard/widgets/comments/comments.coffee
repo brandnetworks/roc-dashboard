@@ -6,12 +6,8 @@ class Dashing.Comments extends Dashing.Widget
 
   @accessor 'tweets?', ->
     if @get('length') != 0
-      @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
       ''
     else
-      @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "rgba(0, 0, 0, 0)"
       'Closed'
 
   ready: ->
@@ -29,17 +25,24 @@ class Dashing.Comments extends Dashing.Widget
     setInterval(@nextComment, 20000)
 
   nextComment: =>
-    comments = @get('comments')
+    @comments = @get('comments')
     length = @get('length')
     if length > 1
+      @outer = $(@node).find('.outer')
+      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
       @commentElem.fadeOut =>
-        @currentIndex = (@currentIndex + 1) % comments.length
-        @set 'current_comment', comments[@currentIndex]
+        @currentIndex = (@currentIndex + 1) % @comments.length
+        @set 'current_comment', @comments[@currentIndex]
         $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
         @commentElem.fadeIn()
     else if length == 1
-      @set 'current_comment', comments[@currentIndex]
+      @outer = $(@node).find('.outer')
+      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
+      @set 'current_comment', @comments[@currentIndex]
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
-      $(@get('node')).css 'background-image', "url('assets/food-truck.png')"
+      @outer = $(@node).find('.outer')
+      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0))"
+      @commentElem.fadeOut =>
+        $(@get('node')).css 'background-image', "url('assets/food-truck.png')"
