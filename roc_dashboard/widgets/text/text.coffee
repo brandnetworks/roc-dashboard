@@ -18,11 +18,14 @@ class Dashing.Text extends Dashing.Widget
       url = @get('lastfm_art')
       if url != "" && url.substring(0,18) != "https://secure-img"
         $(@get('node')).css 'background-image', "url(#{url})"
-      # determine if there is an album art image
-      if "#{@get('album_art')}" != ""
-        "#{@get('album_art')}"
-      else
+      # determine album art image
+      art_url = "#{@get('album_art')}"
+      arr = art_url.split('http://')
+      art_url = 'http://' + arr[arr.length - 1]
+      if art_url == "" || art_url.substring(0,12) == "http://10.10"
         "/assets/default-album-art.png"
+      else
+        art_url
     else
       # align items when no music is playing
       $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
@@ -34,6 +37,7 @@ class Dashing.Text extends Dashing.Widget
     if num >= 0 then num else 0
 
   shift: () ->
+    # reset variables
     box_width = 570
     title = $(@get('node')).find('.title')
     artist = $(@get('node')).find('.artist')

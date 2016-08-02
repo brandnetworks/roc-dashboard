@@ -1,7 +1,5 @@
 require 'twitter'
 
-time = Time.new
-
 #### Get your twitter keys & secrets:
 #### https://dev.twitter.com/docs/auth/tokens-devtwittercom
 twitter = Twitter::REST::Client.new do |config|
@@ -15,6 +13,8 @@ search_term = 'state from:ehmeals, OR from:roccitysammich, OR from:the_bentobox,
 
 SCHEDULER.every '600s', :first_in => 0 do |job|
   begin
+
+    time = Time.new
     tweets = twitter.search("#{search_term}")
 
     if tweets

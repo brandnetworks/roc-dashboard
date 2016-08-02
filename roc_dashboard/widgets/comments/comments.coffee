@@ -28,6 +28,7 @@ class Dashing.Comments extends Dashing.Widget
     @comments = @get('comments')
     length = @get('length')
     if length > 1
+      # rotate between multiple tweets
       @outer = $(@node).find('.outer')
       @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
       @commentElem.fadeOut =>
@@ -36,12 +37,14 @@ class Dashing.Comments extends Dashing.Widget
         $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
         @commentElem.fadeIn()
     else if length == 1
+      # display only one tweet
       @outer = $(@node).find('.outer')
       @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
       @set 'current_comment', @comments[@currentIndex]
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
+      # display "no food trucks" screen
       @outer = $(@node).find('.outer')
       @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0))"
       @commentElem.fadeOut =>

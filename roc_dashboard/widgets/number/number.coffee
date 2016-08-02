@@ -13,8 +13,6 @@ class Dashing.Number extends Dashing.Widget
     else
       "#73CEFF"
 
-  @accessor 'current', Dashing.AnimatedValue
-
   @accessor 'increasing?', ->
     if @get('increasing') then 'fa fa-arrow-up' else 'fa fa-arrow-down'
 
