@@ -22,12 +22,10 @@ class Dashing.Text extends Dashing.Widget
       art_url = "#{@get('album_art')}"
       arr = art_url.split('http://')
       art_url = 'http://' + arr[arr.length - 1]
-      if art_url.substring(0,23) == "http://10.10.2.200:1400"
+      if art_url != "" && art_url.substring(0,12) != "http://10.10" || art_url.indexOf ":1400" != -1
         art_url
-      else if art_url == "" || art_url.substring(0,12) == "http://10.10"
-        "/assets/default-album-art.png"
       else
-        art_url
+        "/assets/default-album-art.png"
     else
       # align items when no music is playing
       $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"

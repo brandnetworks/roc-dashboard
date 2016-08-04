@@ -11,13 +11,14 @@ token = lastfm.auth.get_token
 
 SCHEDULER.every '1s' do
   @current = speaker.now_playing
-  if @current != nil && @playing[:title] != @current[:title] && @current[:artist] != ""
+  # ads from Pandora do not have an artist
+  if @current && @current[:artist] != "" && @playing[:title] != @current[:title]
     @playing = @current
     @info = lastfm.artist.get_info(artist: @playing[:artist])
     @images = @info['image'].select {|a| a['size'] == "mega"}
     @playing['lastfm_art'] = "#{@images[0]['content']}"
     @playing[:music] = true
-  elsif @playing[:title] == @current[:title]
+  elsif @current && @playing[:title] == @current[:title]
     #continue playing
   else
     @playing[:title] = "No Music"
