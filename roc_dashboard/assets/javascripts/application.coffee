@@ -8,6 +8,24 @@
 
 console.log("Yeah! The dashboard has started!")
 
+previous = ''
+current = ''
+
+reload = (code) ->
+  previous = current
+  current = code
+  if previous == 'error' and current == 'open'
+    location.reload()
+  return
+
+source = new EventSource('events')
+source.addEventListener 'open', (e) ->
+  reload 'open'
+  return
+source.addEventListener 'error', (e) ->
+  reload 'error'
+  return
+
 Dashing.on 'ready', ->
   Dashing.widget_margins ||= [0, 0]
   Dashing.widget_base_dimensions ||= [960, 540]
