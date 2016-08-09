@@ -22,6 +22,15 @@ class Dashing.Number extends Dashing.Widget
     skycons.add($(@get('node')).find('.forecast-icon').get(0), @get('icon'))
     skycons.play()
 
+  @accessor 'summary?', ->
+    summary = @get('summary')
+    summary = summary.replace '.', ""
+    wordList = ["rain", "snow", "hail", "sleet", "thunder", "storm"]
+    check = wordList.some (word) -> ~summary.toLowerCase().indexOf word
+    if !check
+      summary = ""
+    summary
+
   onData: (data) ->
     if data.status
       # clear existing "status-*" classes

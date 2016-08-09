@@ -1,19 +1,6 @@
-// ----------------------------------------------------------------------------
-// Sass declarations
-// ----------------------------------------------------------------------------
-$background-color:  #dc5945;
-
-$title-color:       rgba(255, 255, 255, 0.7);
-$moreinfo-color:    rgba(255, 255, 255, 0.3);
-$tick-color:        rgba(0, 0, 0, 0.4);
-
-
-// ----------------------------------------------------------------------------
-// Widget-graph styles
-// ----------------------------------------------------------------------------
 .widget-graph {
 
-  background-color: $background-color;
+  background-color: #999999;
   position: relative;
 
 
@@ -28,14 +15,15 @@ $tick-color:        rgba(0, 0, 0, 0.4);
   .title, .value {
     position: relative;
     z-index: 99;
+    margin-bottom: 400px;
   }
 
   .title {
-    color: $title-color;
+    color: #000;
   }
 
   .more-info {
-    color: $moreinfo-color;
+    color: #000;
     font-weight: 600;
     font-size: 20px;
     margin-top: 0;
@@ -46,7 +34,7 @@ $tick-color:        rgba(0, 0, 0, 0.4);
     bottom: 0;
     .title {
       font-size: 20px;
-      color: $tick-color;
+      color: #000;
       opacity: 0.5;
       padding-bottom: 3px;
     }
@@ -54,7 +42,7 @@ $tick-color:        rgba(0, 0, 0, 0.4);
 
   .y_ticks {
     font-size: 20px;
-    fill: $tick-color;
+    fill: #000;
     fill-opacity: 1;
   }
 

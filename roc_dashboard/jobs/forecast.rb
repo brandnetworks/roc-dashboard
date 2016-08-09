@@ -20,7 +20,8 @@ def send_info
   @forecast = ForecastIO.forecast(43.159861,-77.615103)
   @currently = @forecast['currently']
   @data = @forecast['hourly']['data']
-  send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"]})
+  @summary = @forecast['minutely']['summary']
+  send_event('temperature', { current: @currently["temperature"].round, increasing: increasing_temp, icon: @currently["icon"], summary: @summary})
 end
 
 ForecastIO.api_key = ENV['FORECAST_KEY']
