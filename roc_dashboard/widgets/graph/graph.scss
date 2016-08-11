@@ -1,46 +1,31 @@
 .widget-graph {
 
-  background-color: #999999;
-  position: relative;
-
+  background-color: #f2f2f2;
 
   svg {
     position: absolute;
     opacity: 0.4;
     fill-opacity: 0.4;
     left: 0px;
-    top: 0px;
+    top: 00px;
   }
 
   .title, .value {
-    position: relative;
-    z-index: 99;
-    margin-bottom: 400px;
-  }
-
-  .title {
     color: #000;
+    font-size: 70px;
+    opacity: .7;
+    margin-bottom: 400px;
   }
 
   .more-info {
     color: #000;
-    font-weight: 600;
-    font-size: 20px;
-    margin-top: 0;
-  }
-
-  .x_tick {
-    position: absolute;
-    bottom: 0;
-    .title {
-      font-size: 20px;
-      color: #000;
-      opacity: 0.5;
-      padding-bottom: 3px;
-    }
+    font-size: 60px;
+    opacity: .7;
+    margin-bottom: 250px;
   }
 
   .y_ticks {
+    width: 720px;
     font-size: 20px;
     fill: #000;
     fill-opacity: 1;
@@ -48,6 +33,15 @@
 
   .domain {
     display: none;
+  }
+
+  .grid .tick {
+    stroke: gray;
+    opacity: 0.7;
+  }
+
+  .grid path {
+    stroke-width: 0;
   }
 
 }
