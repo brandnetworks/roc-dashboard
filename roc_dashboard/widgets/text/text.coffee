@@ -11,27 +11,19 @@ class Dashing.Text extends Dashing.Widget
 
   @accessor 'album_art?', ->
     if @get('music')
-      # align items and set background
-      $(@get('node')).find('.album-art').css 'display', 'inline'
-      $(@get('node')).find('.title-box').css 'margin-top', '169px'
-      $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
       url = @get('lastfm_art')
-      if url != "" && url.substring(0,18) != "https://secure-img"
+      if url != "" && url != undefined && url.substring(0,18) != "https://secure-img" && url.substring(0,19) != "https://lastfm-img2"
         $(@get('node')).css 'background-image', "url(#{url})"
+      else
+        $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
       # determine album art image
       art_url = "#{@get('album_art')}"
       arr = art_url.split('http://')
       art_url = 'http://' + arr[arr.length - 1]
-      if art_url != "" && art_url.substring(0,12) != "http://10.10" || art_url.indexOf ":1400" != -1
+      if art_url != "http://" && art_url.substring(0,12) != "http://10.10" || art_url.indexOf ":1400" != -1
         art_url
       else
         "/assets/default-album-art.png"
-    else
-      # align items when no music is playing
-      $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
-      $(@get('node')).find('.album-art').css 'display', 'none'
-      $(@get('node')).find('.title-box').css 'margin-top', '220px'
-      ""
 
   fixSpace: (num) ->
     if num >= 0 then num else 0
@@ -83,4 +75,11 @@ class Dashing.Text extends Dashing.Widget
     $(@get('node')).find('.album').css "margin-left", 0
     clearInterval @interval
     if @get('music')
+      # align items and set background
+      $(@get('node')).find('.album-art').css 'display', 'inline'
+      $(@get('node')).find('.title-box').css 'margin-top', '169px'
       @shift()
+    else
+      $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
+      $(@get('node')).find('.album-art').css 'display', 'none'
+      $(@get('node')).find('.title-box').css 'margin-top', '220px'

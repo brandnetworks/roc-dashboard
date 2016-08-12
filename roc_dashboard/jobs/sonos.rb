@@ -14,10 +14,12 @@ SCHEDULER.every '1s' do
   # ads from Pandora do not have an artist
   if @current && @current[:artist] != "" && @playing[:title] != @current[:title]
     @playing = @current
-    @info = lastfm.artist.get_info(artist: @playing[:artist])
-    @images = @info['image'].select {|a| a['size'] == "mega"}
-    @playing['lastfm_art'] = "#{@images[0]['content']}"
     @playing[:music] = true
+    @info = lastfm.artist.get_info(artist: @playing[:artist])
+    if @info != nil
+      @images = @info['image'].select {|a| a['size'] == "mega"}
+      @playing['lastfm_art'] = "#{@images[0]['content']}"
+    end
   elsif @current && @playing[:title] == @current[:title]
     #continue playing
   else

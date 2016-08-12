@@ -4,26 +4,19 @@ require 'time'
 require 'open-uri'
 require 'cgi'
 
-@today = ""
+@info = {}
 
 JIRA_OPENISSUES_CONFIG = {
   jira_url: "https://jira.brandnetworksinc.com",
   username:  "jira-reader",
   password: ENV['JIRA_PASS'],
   issuecount_mapping: {
-    'filterX' => "filter=12504"
+    'Bugs Created' => "filter=12504",
+    'Bugs Closed' => "filter=10405",
+    'Issues Opened' => "filter=19110",
+    'Issues Closed' => "filter=10405"
   }
 }
-
-def reset_points
-  @today = Time.new.day
-  time = Time.new.to_s
-  @x = (time[11,2].to_i * 60 + time[14,2].to_i)
-  @points = []
-  (0..1440).each do |i|
-    @points << { x: i, y: -1 }
-  end
-end
 
 def getNumberOfIssues(url, username, password, jqlString)
   jql = CGI.escape(jqlString)
@@ -37,12 +30,17 @@ def getNumberOfIssues(url, username, password, jqlString)
   JSON.parse(http.request(request).body)["total"]
 end
 
-JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
-  SCHEDULER.every '60s', :first_in => 0 do
+def send_info
+  @info = {}
+  JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
     total = getNumberOfIssues(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter)
-    reset_points if @today != Time.new.day
-    @points[@x] = { x: @x, y: total}
-    send_event('data1', { points: @points, current: @points[@x][:y] })
-    @x += 1
+    @info[mappingName] = total
   end
+  send_event('jira-scroll', { scroll_info: @info })
+end
+
+send_info
+
+SCHEDULER.every '60s' do
+  send_info
 end
