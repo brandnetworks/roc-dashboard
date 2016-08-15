@@ -12,15 +12,19 @@
     overflow: hidden;
   }
 
-  .data {
-    height: 100px;
+  .box {
+    height: 400px;
     width: 400px;
     position: absolute;
     white-space: normal;
     color: black;
     font-size: 70px;
-    margin-top: 250px;
     background-color: blue;
+    border-radius: 15px;
+    background: -webkit-radial-gradient(#0066ff 20%, #0047b3 60%);
+    background: radial-gradient(#0066ff 20%, #0047b3 60%);
+    background-image: url('jira-blue.jpg');
+    background-size: cover;
   }
 
   .name {
@@ -28,41 +32,33 @@
     width: 400px;
     position: absolute;
     white-space: normal;
-    color: black;
     font-size: 50px;
-    margin-top: 50px;
-    background-color: blue;
+    margin-top: 100px;
   }
 
-  .data1 {
+  .data {
+    height: 100px;
+    width: 400px;
+    position: absolute;
+    white-space: normal;
+    font-size: 100px;
+    margin-top: 160px;
+    font-weight: 575;
+  }
+
+  .box1 {
     margin-left: 33px;
   }
 
-  .name1 {
-    margin-left: 33px;
-  }
-
-  .data2 {
+  .box2 {
     margin-left: 466px;
   }
 
-  .name2 {
-    margin-left: 466px;
-  }
-
-  .data3 {
+  .box3 {
     margin-left: -833px;
   }
 
-  .name3 {
-    margin-left: -833px;
-  }
-
-  .data4 {
-    margin-left: -833px;
-  }
-
-  .name4 {
+  .box4 {
     margin-left: -833px;
   }
 

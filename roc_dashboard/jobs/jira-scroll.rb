@@ -11,10 +11,10 @@ JIRA_OPENISSUES_CONFIG = {
   username:  "jira-reader",
   password: ENV['JIRA_PASS'],
   issuecount_mapping: {
-    'Bugs Created' => "filter=12504",
-    'Bugs Closed' => "filter=10405",
-    'Issues Opened' => "filter=19110",
-    'Issues Closed' => "filter=10405"
+    'Bugs Created' => "filter=19115",
+    'Bugs Closed' => "filter=19112",
+    'Issues Opened' => "filter=19113",
+    'Issues Closed' => "filter=19114"
   }
 }
 
@@ -27,7 +27,11 @@ def getNumberOfIssues(url, username, password, jqlString)
   if !username.nil? && !username.empty?
     request.basic_auth(username, password)
   end
-  JSON.parse(http.request(request).body)["total"]
+  begin
+    JSON.parse(http.request(request).body)["total"]
+  rescue JSON::ParserError => e
+    "Solve Captcha"
+  end
 end
 
 def send_info

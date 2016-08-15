@@ -10,7 +10,11 @@ lastfm = Lastfm.new(ENV['LAST_KEY'], ENV['LAST_SECRET'])
 token = lastfm.auth.get_token
 
 SCHEDULER.every '1s' do
-  @current = speaker.now_playing
+  begin
+    @current = speaker.now_playing
+  rescue StandardError => e
+    # cannot connect to Sonos
+  end
   # ads from Pandora do not have an artist
   if @current && @current[:artist] != "" && @playing[:title] != @current[:title]
     @playing = @current
