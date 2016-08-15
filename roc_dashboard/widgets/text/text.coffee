@@ -12,7 +12,7 @@ class Dashing.Text extends Dashing.Widget
   @accessor 'album_art?', ->
     if @get('music')
       url = @get('lastfm_art')
-      if url != "" && url != undefined && url.substring(0,18) != "https://secure-img" && url.substring(0,19) != "https://lastfm-img2"
+      if url != "" && url != undefined && url.substring(0,18) != "https://secure-img"
         $(@get('node')).css 'background-image', "url(#{url})"
       else
         $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
