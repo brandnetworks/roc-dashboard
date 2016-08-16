@@ -14,7 +14,9 @@ JIRA_OPENISSUES_CONFIG = {
     'Bugs Created' => "filter=19115",
     'Bugs Closed' => "filter=19112",
     'Issues Opened' => "filter=19113",
-    'Issues Closed' => "filter=19114"
+    'Issues Closed' => "filter=19114",
+    'Blockers' => "filter=19116",
+    'RCA Tickets' => "filter=19117"
   }
 }
 

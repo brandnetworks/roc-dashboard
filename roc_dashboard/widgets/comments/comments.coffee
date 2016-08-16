@@ -1,5 +1,8 @@
 class Dashing.Comments extends Dashing.Widget
 
+  @accessor 'trucks?', ->
+    "#{@get('length')}/2"
+
   @accessor 'quote', ->
     comment = "#{@get('current_comment')?.body}".trim()
     "\"#{comment}\""

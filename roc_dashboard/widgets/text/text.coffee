@@ -20,7 +20,7 @@ class Dashing.Text extends Dashing.Widget
       art_url = "#{@get('album_art')}"
       arr = art_url.split('http://')
       art_url = 'http://' + arr[arr.length - 1]
-      if art_url != "http://" && art_url.substring(0,12) != "http://10.10" || art_url.indexOf ":1400" != -1
+      if art_url != "http://" && art_url.substring(0,12) != "http://10.10" && art_url.indexOf ":1400" != -1
         art_url
       else
         "/assets/default-album-art.png"
