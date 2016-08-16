@@ -23,10 +23,11 @@ class Dashing.Number extends Dashing.Widget
     skycons.play()
 
   @accessor 'summary?', ->
+    check = false
     summary = @get('summary')
-    summary = summary.replace '.', ""
-    wordList = ["rain", "snow", "hail", "sleet", "thunder", "storm"]
-    check = wordList.some (word) -> ~summary.toLowerCase().indexOf word
+    if summary
+      wordList = ["rain", "snow", "hail", "sleet", "thunder", "storm"]
+      check = wordList.some (word) -> ~summary.toLowerCase().indexOf word
     if !check
       summary = ""
     summary
