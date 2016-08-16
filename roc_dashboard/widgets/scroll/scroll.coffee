@@ -23,13 +23,13 @@ class Dashing.Scroll extends Dashing.Widget
     box3_location = -833
     box4_location = -400
     wait = 50
-    x = 0
+    x = 5
     @interval = setInterval ->
       # move text forward
-      if x > 60 && x < 103
+      if x > 60 && x < 104
         val = 55
-      else if x >= 103
-        val = x-43
+      else if x >= 104
+        val = x-44
       else val = x
       dx = 9/(Math.exp(Math.pow(.045*val-2.718,2)))+1
       if wait == 0

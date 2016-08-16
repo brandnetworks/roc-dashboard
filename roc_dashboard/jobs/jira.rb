@@ -30,21 +30,25 @@ def getNumberOfIssues(url, username, password, jqlString)
   begin
     JSON.parse(http.request(request).body)["total"]
   rescue JSON::ParserError => e
-    "Solve Captcha"
+    "Error"
   end
 end
 
 def send_info
-  @info = {}
-  JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
-    total = getNumberOfIssues(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter)
-    @info[mappingName] = total
+  if ENV['ENABLE_JIRA'] == 'true'
+    @info = {}
+    JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
+      total = getNumberOfIssues(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter)
+      @info[mappingName] = total
+    end
+    send_event('jira-scroll', { scroll_info: @info })
+  else
+    puts "\e[33mJira is disabled. To enable, set the environment variable 'ENABLE_JIRA' to 'true'\e[0m"
   end
-  send_event('jira-scroll', { scroll_info: @info })
 end
 
-send_info
+  send_info
 
 SCHEDULER.every '60s' do
-  send_info
+    send_info
 end
