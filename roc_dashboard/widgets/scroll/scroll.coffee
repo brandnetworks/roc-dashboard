@@ -3,6 +3,7 @@ class Dashing.Scroll extends Dashing.Widget
   names = []
   values = []
   current = 0
+  previous = 0
 
   resizeText: (box1, box2) ->
     if isNaN values[current] then size = "60px" else size = "100px"
@@ -10,21 +11,15 @@ class Dashing.Scroll extends Dashing.Widget
     if isNaN values[current+1] then size = "60px" else size = "100px"
     $(@get('node')).find(".#{box2} .data").css "font-size", size
 
-  setData: (pair) =>
-    size = names.length
-    # remove Product Blocker count if uneven amount of items
-    if size % 2 != 0
-      names.splice names.length-1, 1
-      values.splice values.length-1, 1
-      size -=1
-    if current >= size
+  setData: (pair) ->
+    if current >= names.length
       current = 0
     # remove number from Product Blocker display
     names1 = names[current]
     names2 = names[current+1]
-    if (names1.indexOf "Product") > 0
+    if (names1 && names1.indexOf "Product") > 0
       names1 = names1.substring 2,17
-    if (names2.indexOf "Product") > 0
+    if (names2 && names2.indexOf "Product") > 0
       names2 = names2.substring 2,17
     # set data for first two boxes
     if pair == "first"
@@ -100,12 +95,27 @@ class Dashing.Scroll extends Dashing.Widget
     for key of scroll_info
       names.push key
       values.push scroll_info[key]
+    # remove last item if uneven amount of items
+    size = names.length
+    if size % 2 != 0
+      names.splice names.length-1, 1
+      values.splice values.length-1, 1
+      size -=1
+    if current >= size
+      current = 0
 
   onData: (data) ->
     @resetData()
+    if names.length > 2 && previous <= 2
+      previous = names.length
+      @shift()
+    else if names.length <= 2 && previous > 2
+      previous = names.length
+      clearInterval() @interval
 
   ready: ->
     @resetData()
     @setData "first"
     @setData "second"
-    @shift()
+    if names.length > 2
+      @shift()

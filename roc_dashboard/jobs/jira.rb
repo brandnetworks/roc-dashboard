@@ -4,8 +4,6 @@ require 'time'
 require 'open-uri'
 require 'cgi'
 
-@info = {}
-
 JIRA_OPENISSUES_CONFIG = {
   jira_url: "https://jira.brandnetworksinc.com",
   username:  "jira-reader",
@@ -20,7 +18,7 @@ JIRA_OPENISSUES_CONFIG = {
   }
 }
 
-def getDetails(url, username, password, jqlString, return_type)
+def get_details(url, username, password, jqlString, return_type)
   jql = CGI.escape(jqlString)
   uri = URI.parse("#{url}/rest/api/2/search?jql=#{jql}")
   http = Net::HTTP.new(uri.host, uri.port)
@@ -38,23 +36,33 @@ end
 
 def send_info
   if ENV['ENABLE_JIRA'] == 'true'
-    @info = {}
+    @jira_bugs = {}
+    @jira_issues = {}
+    @jira_rca_blockers = {}
     JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
-      if mappingName == 'Product Blockers'
-        issues = getDetails(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "issues")
+      case mappingName
+      when 'Bugs Created', 'Bugs Closed'
+        @jira_bugs[mappingName] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
+      when 'Issues Opened', 'Issues Closed'
+        @jira_issues[mappingName] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
+      when 'Product Blockers'
+        issues = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "issues")
         number = 1
         issues.each do |issue|
-          @info["#{number} Product Blocker"] = issue['key']
+          @jira_rca_blockers["#{number} Product Blocker"] = issue['key']
           number +=1
         end
+        @jira_rca_blockers["Product Blockers"] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
+      when 'RCA Tickets'
+        @jira_rca_blockers[mappingName] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
       end
-      total = getDetails(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
-      @info[mappingName] = total
     end
-    send_event('jira-scroll', { scroll_info: @info })
   else
     puts "\e[33mJira is disabled. To enable, set the environment variable 'ENABLE_JIRA' to 'true'\e[0m"
   end
+  send_event('jira-scroll-bugs', { scroll_info: @jira_bugs })
+  send_event('jira-scroll-issues', { scroll_info: @jira_issues })
+  send_event('jira-scroll-rca-blockers', { scroll_info: @jira_rca_blockers })
 end
 
 send_info

@@ -12,7 +12,7 @@ class Dashing.Comments extends Dashing.Widget
       'Closed'
 
   ready: ->
-    @x = 2
+    @truckNum = 2
     @currentIndex = 0
     @commentElem = $(@node).find('.comment-container')
     @nextComment()
@@ -39,8 +39,8 @@ class Dashing.Comments extends Dashing.Widget
     if length > 1
       # rotate between multiple tweets
       @addGradient true
-      @x = if @x == 1 then 2 else 1
-      @set 'trucks', "#{@x}/2"
+      @truckNum = if @truckNum == 1 then 2 else 1
+      @set 'trucks', "#{@truckNum}/2"
       @commentElem.fadeOut =>
         @currentIndex = (@currentIndex + 1) % @comments.length
         @set 'current_comment', @comments[@currentIndex]
