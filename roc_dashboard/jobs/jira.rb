@@ -15,12 +15,12 @@ JIRA_OPENISSUES_CONFIG = {
     'Bugs Closed' => "filter=19112",
     'Issues Opened' => "filter=19113",
     'Issues Closed' => "filter=19114",
-    'Blockers' => "filter=19116",
-    'RCA Tickets' => "filter=19117"
+    'RCA Tickets' => "filter=19117",
+    'Product Blockers' => "filter=19116"
   }
 }
 
-def getNumberOfIssues(url, username, password, jqlString)
+def getDetails(url, username, password, jqlString, return_type)
   jql = CGI.escape(jqlString)
   uri = URI.parse("#{url}/rest/api/2/search?jql=#{jql}")
   http = Net::HTTP.new(uri.host, uri.port)
@@ -30,7 +30,7 @@ def getNumberOfIssues(url, username, password, jqlString)
     request.basic_auth(username, password)
   end
   begin
-    JSON.parse(http.request(request).body)["total"]
+    JSON.parse(http.request(request).body)[return_type]
   rescue JSON::ParserError => e
     "Error"
   end
@@ -40,7 +40,15 @@ def send_info
   if ENV['ENABLE_JIRA'] == 'true'
     @info = {}
     JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
-      total = getNumberOfIssues(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter)
+      if mappingName == 'Product Blockers'
+        issues = getDetails(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "issues")
+        number = 1
+        issues.each do |issue|
+          @info["#{number} Product Blocker"] = issue['key']
+          number +=1
+        end
+      end
+      total = getDetails(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
       @info[mappingName] = total
     end
     send_event('jira-scroll', { scroll_info: @info })
@@ -49,7 +57,7 @@ def send_info
   end
 end
 
-  send_info
+send_info
 
 SCHEDULER.every '60s' do
     send_info

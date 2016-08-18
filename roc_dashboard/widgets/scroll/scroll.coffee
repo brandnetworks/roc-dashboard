@@ -4,23 +4,44 @@ class Dashing.Scroll extends Dashing.Widget
   values = []
   current = 0
 
+  resizeText: (box1, box2) ->
+    if isNaN values[current] then size = "60px" else size = "100px"
+    $(@get('node')).find(".#{box1} .data").css "font-size", size
+    if isNaN values[current+1] then size = "60px" else size = "100px"
+    $(@get('node')).find(".#{box2} .data").css "font-size", size
+
   setData: (pair) =>
-    size = 0
-    for key of @get('scroll_info')
-      size++
-    size
+    size = names.length
+    # remove Product Blocker count if uneven amount of items
+    if size % 2 != 0
+      names.splice names.length-1, 1
+      values.splice values.length-1, 1
+      size -=1
     if current >= size
       current = 0
+    # remove number from Product Blocker display
+    names1 = names[current]
+    names2 = names[current+1]
+    if (names1.indexOf "Product") > 0
+      names1 = names1.substring 2,17
+    if (names2.indexOf "Product") > 0
+      names2 = names2.substring 2,17
+    # set data for first two boxes
     if pair == "first"
       @set 'data1', values[current]
       @set 'data2', values[current+1]
-      @set 'name1', names[current]
-      @set 'name2', names[current+1]
+      @set 'name1', names1
+      @set 'name2', names2
+      # reduce size of text if not a number, reset otherwise
+      @resizeText('box1', 'box2')
+    # set data for second two boxes
     else if pair == "second"
       @set 'data3', values[current]
       @set 'data4', values[current+1]
-      @set 'name3', names[current]
-      @set 'name4', names[current+1]
+      @set 'name3', names1
+      @set 'name4', names2
+      # reduce size of text if not a number, reser otherwise
+      @resizeText('box3', 'box4')
     current +=2
 
   shift: () ->
@@ -43,6 +64,7 @@ class Dashing.Scroll extends Dashing.Widget
       else if x >= 104
         val = x-44
       else val = x
+      # calculate the distance the boxes must move
       dx = 9/(Math.exp(Math.pow(.045*val-2.718,2)))+1
       if wait == 0
         box1.css "margin-left", box1_location+=dx

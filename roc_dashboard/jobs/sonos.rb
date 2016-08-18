@@ -7,7 +7,6 @@ speaker = sonos_system.speakers.first
 @playing = {:title => ""}
 
 lastfm = Lastfm.new(ENV['LAST_KEY'], ENV['LAST_SECRET'])
-token = lastfm.auth.get_token
 
 SCHEDULER.every '1s' do
   begin
@@ -15,7 +14,7 @@ SCHEDULER.every '1s' do
   rescue StandardError => e
     # cannot connect to Sonos
   end
-  # ads from Pandora do not have an artist
+  # detect if music is playing (ads from Pandora do not have an artist)
   if @current && @current[:artist] != "" && @playing[:title] != @current[:title]
     @playing = @current
     @playing[:music] = true
@@ -25,7 +24,7 @@ SCHEDULER.every '1s' do
       @playing['lastfm_art'] = "#{@images[0]['content']}"
     end
   elsif @current && @playing[:title] == @current[:title]
-    #continue playing
+    # continue playing
   else
     @playing[:title] = "No Music"
     @playing[:artist] = ""

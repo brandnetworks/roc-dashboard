@@ -1,9 +1,7 @@
 class Dashing.Comments extends Dashing.Widget
 
-  @accessor 'trucks?', ->
-    "#{@get('length')}/2"
-
   @accessor 'quote', ->
+    # remove whitespace and add quotes
     comment = "#{@get('current_comment')?.body}".trim()
     "\"#{comment}\""
 
@@ -14,6 +12,7 @@ class Dashing.Comments extends Dashing.Widget
       'Closed'
 
   ready: ->
+    @x = 2
     @currentIndex = 0
     @commentElem = $(@node).find('.comment-container')
     @nextComment()
@@ -27,13 +26,21 @@ class Dashing.Comments extends Dashing.Widget
   startCarousel: ->
     setInterval(@nextComment, 20000)
 
+  addGradient: (add) ->
+    outer = $(@node).find('.outer')
+    if add
+      outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
+    else
+      outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0))"
+
   nextComment: =>
     @comments = @get('comments')
     length = @get('length')
     if length > 1
       # rotate between multiple tweets
-      @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
+      @addGradient true
+      @x = if @x == 1 then 2 else 1
+      @set 'trucks', "#{@x}/2"
       @commentElem.fadeOut =>
         @currentIndex = (@currentIndex + 1) % @comments.length
         @set 'current_comment', @comments[@currentIndex]
@@ -41,14 +48,13 @@ class Dashing.Comments extends Dashing.Widget
         @commentElem.fadeIn()
     else if length == 1
       # display only one tweet
-      @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, .55), rgba(0, 0, 0, .7), rgba(0, 0, 0, .7), rgba(0, 0, 0, .55))"
+      @set 'trucks', "1/1"
+      @addGradient true
       @set 'current_comment', @comments[@currentIndex]
       $(@get('node')).css 'background-image', "url(#{@get('current_comment').avatar.replace /_normal/, ""})"
       @commentElem.fadeIn()
     else
       # display "no food trucks" screen
-      @outer = $(@node).find('.outer')
-      @outer.css 'background-image', "-webkit-linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0))"
+      @addGradient false
       @commentElem.fadeOut =>
         $(@get('node')).css 'background-image', "url('assets/food-truck.png')"

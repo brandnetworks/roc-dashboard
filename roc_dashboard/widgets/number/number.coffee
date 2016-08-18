@@ -1,6 +1,7 @@
 class Dashing.Number extends Dashing.Widget
 
   color: () ->
+    # return a background color to match the temperature
     temp = @get('current')
     if temp > 80
       "#FF901D"
@@ -26,7 +27,8 @@ class Dashing.Number extends Dashing.Widget
     check = false
     summary = @get('summary')
     if summary
-      wordList = ["rain", "snow", "hail", "sleet", "thunder", "storm"]
+      wordList = ["rain", "snow", "hail", "sleet", "thunder", "storm", "drizzle", "precipitation", "shower", "blizzard"]
+      # display summary if it contains one of the strings found in wordList
       check = wordList.some (word) -> ~summary.toLowerCase().indexOf word
     if !check
       summary = ""

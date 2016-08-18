@@ -13,17 +13,14 @@ search_term = 'state from:ehmeals, OR from:roccitysammich, OR from:the_bentobox,
 
 SCHEDULER.every '600s', :first_in => 0 do |job|
   begin
-
     time = Time.new
     tweets = twitter.search("#{search_term}")
-
     if tweets
       #populate tweets
       tweets = tweets.map do |tweet|
         { name: tweet.user.name, body: tweet.text, avatar: tweet.user.profile_image_url_https, created_at: tweet.created_at, retweet: tweet.retweeted_status}
       end
-
-      #filter out retweets, multiple tweets from the same user, and tweets not from today
+      # filter out tweets not from today, retweets, and multiple tweets from the same user
       users = []
       recent_tweets = []
       j = 0
@@ -39,7 +36,6 @@ SCHEDULER.every '600s', :first_in => 0 do |job|
           j+=1
         end
       end
-
       #remove links from tweets
       recent_tweets.each do |tweet|
         str=tweet[:body].gsub(/(?:f|ht)tps?:\/[^\s]+/, '')

@@ -11,15 +11,18 @@ class Dashing.Text extends Dashing.Widget
 
   @accessor 'album_art?', ->
     if @get('music')
+      # set background image from lastfm if available
       url = @get('lastfm_art')
       if url != "" && url != undefined && url.substring(0,18) != "https://secure-img"
         $(@get('node')).css 'background-image', "url(#{url})"
       else
         $(@get('node')).css 'background-image', "url(assets/sonos-default-background.jpg)"
-      # determine album art image
+      # set album art image if available
       art_url = "#{@get('album_art')}"
       arr = art_url.split('http://')
+      # remove extra urls from art_url (occasionally localhost is appended to the begining)
       art_url = 'http://' + arr[arr.length - 1]
+      # detect invalid urls
       if art_url != "http://" && art_url.substring(0,12) != "http://10.10" && art_url.indexOf ":1400" != -1
         art_url
       else
@@ -52,6 +55,7 @@ class Dashing.Text extends Dashing.Widget
         title.css "margin-left", title_location-=title_space
         artist.css "margin-left", artist_location-=artist_space
         album.css "margin-left", album_location-=album_space
+        # stop movement when everything has fully scrolled
         if title_location <= box_width-title_width && artist_location <= box_width-artist_width && album_location <= box_width-album_width
           forward = false
           wait = 50
@@ -60,6 +64,7 @@ class Dashing.Text extends Dashing.Widget
         title.css "margin-left", title_location+=title_space
         artist.css "margin-left", artist_location+=artist_space
         album.css "margin-left", album_location+=album_space
+        #stop movement when everything has fully scrolled back
         if title_location >= 0 && artist_location >= 0 && album_location >= 0
           forward = true
           wait = 150
