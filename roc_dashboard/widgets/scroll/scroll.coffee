@@ -35,7 +35,7 @@ class Dashing.Scroll extends Dashing.Widget
       @set 'data4', values[current+1]
       @set 'name3', names1
       @set 'name4', names2
-      # reduce size of text if not a number, reser otherwise
+      # reduce size of text if not a number, reset otherwise
       @resizeText('box3', 'box4')
     current +=2
 
@@ -53,13 +53,12 @@ class Dashing.Scroll extends Dashing.Widget
     x = 5
     self = this
     @interval = setInterval ->
-      # move text forward
       if x > 60 && x < 104
         val = 55
       else if x >= 104
         val = x-44
       else val = x
-      # calculate the distance the boxes must move
+      # calculate the distance the boxes must move each tick
       dx = 9/(Math.exp(Math.pow(.045*val-2.718,2)))+1
       if wait == 0
         box1.css "margin-left", box1_location+=dx
@@ -95,7 +94,7 @@ class Dashing.Scroll extends Dashing.Widget
     for key of scroll_info
       names.push key
       values.push scroll_info[key]
-    # remove last item if uneven amount of items
+    # remove last item if uneven amount of items to prevent blank boxes (redundant data is added in jira.rb to prevent loss of real data)
     size = names.length
     if size % 2 != 0
       names.splice names.length-1, 1

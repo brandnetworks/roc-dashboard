@@ -6,10 +6,7 @@ class Dashing.Comments extends Dashing.Widget
     "\"#{comment}\""
 
   @accessor 'tweets?', ->
-    if @get('length') != 0
-      ''
-    else
-      'Closed'
+    if @get('length') != 0 then '' else 'Closed'
 
   ready: ->
     @truckNum = 2

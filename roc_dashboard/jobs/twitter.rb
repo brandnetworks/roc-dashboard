@@ -1,7 +1,5 @@
 require 'twitter'
 
-#### Get your twitter keys & secrets:
-#### https://dev.twitter.com/docs/auth/tokens-devtwittercom
 twitter = Twitter::REST::Client.new do |config|
   config.consumer_key = ENV['CONSUMER_KEY']
   config.consumer_secret = ENV['CONSUMER_SECRET']
@@ -16,7 +14,7 @@ SCHEDULER.every '600s', :first_in => 0 do |job|
     time = Time.new
     tweets = twitter.search("#{search_term}")
     if tweets
-      #populate tweets
+      # populate tweets
       tweets = tweets.map do |tweet|
         { name: tweet.user.name, body: tweet.text, avatar: tweet.user.profile_image_url_https, created_at: tweet.created_at, retweet: tweet.retweeted_status}
       end
@@ -36,7 +34,7 @@ SCHEDULER.every '600s', :first_in => 0 do |job|
           j+=1
         end
       end
-      #remove links from tweets
+      # remove links from tweets
       recent_tweets.each do |tweet|
         str=tweet[:body].gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
         tweet[:body]=str

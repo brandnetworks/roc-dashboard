@@ -5,6 +5,7 @@ require 'lastfm'
 sonos_system = Sonos::System.new
 speaker = sonos_system.speakers.first
 @playing = {:title => ""}
+no_music_timer = 2
 
 lastfm = Lastfm.new(ENV['LAST_KEY'], ENV['LAST_SECRET'])
 
@@ -14,8 +15,9 @@ SCHEDULER.every '1s' do
   rescue StandardError => e
     # cannot connect to Sonos
   end
-  # detect if music is playing (ads from Pandora do not have an artist)
+  # detect if new music is playing (ads from Pandora do not have an artist)
   if current && current[:artist] != "" && @playing[:title] != current[:title]
+    no_music_timer = 2
     @playing = current
     @playing[:music] = true
     # remove sections within parentheses
@@ -35,5 +37,9 @@ SCHEDULER.every '1s' do
     @playing[:album] = ""
     @playing[:music] = false
   end
-  send_event('sonos', @playing)
+  # send info to sonos only when necessary
+  if no_music_timer > 0
+    send_event('sonos', @playing)
+    no_music_timer -=1
+  end
 end

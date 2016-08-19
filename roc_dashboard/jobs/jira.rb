@@ -30,7 +30,7 @@ def get_details(url, username, password, jqlString, return_type)
   begin
     JSON.parse(http.request(request).body)[return_type]
   rescue JSON::ParserError => e
-    "Error"
+    # error getting data; return nothing
   end
 end
 
@@ -40,6 +40,7 @@ def send_info
     @jira_issues = {}
     @jira_rca_blockers = {}
     JIRA_OPENISSUES_CONFIG[:issuecount_mapping].each do |mappingName, filter|
+      # store the results of each filter in different hashes to be sent to separate widgets
       case mappingName
       when 'Bugs Created', 'Bugs Closed'
         @jira_bugs[mappingName] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
@@ -49,10 +50,11 @@ def send_info
         issues = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "issues")
         number = 1
         issues.each do |issue|
+          # Give each Product Number a unique name for the key. Will not be displayed
           @jira_rca_blockers["#{number} Product Blocker"] = issue['key']
           number +=1
         end
-        @jira_rca_blockers["Product Blockers"] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
+        @jira_rca_blockers[mappingName] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
       when 'RCA Tickets'
         @jira_rca_blockers[mappingName] = get_details(JIRA_OPENISSUES_CONFIG[:jira_url], JIRA_OPENISSUES_CONFIG[:username], JIRA_OPENISSUES_CONFIG[:password], filter, "total")
       end
