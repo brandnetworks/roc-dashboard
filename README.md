@@ -1,22 +1,16 @@
 # Getting Started
 
-Install the dashing gem from the command line. Make sure you have Ruby 1.9+
-
-    $ gem install dashing
-
-Choose or create a new directory to hold the dashboard. Install the dashboard from git
-
-    $ git clone https://github.com/brandnetworks/roc-dashboard.git
-    
-Change your directory to `roc_dashboard` and bundle gems
+Change your directory to `roc_dashboard` and install gems with Bundler.
+Tested with Ruby 2.3.1.
 
     $ bundle
 
-See http://dashing.io/ for more information about Dashing
+See http://dashing.io/ for more information about Dashing.
 
 # API Keys
 
-Some of the widgets require API keys to work. Create free accounts and write down the API keys for later use
+Some of the widgets require API keys to work.
+Create free accounts and write down the API keys for later use.
 
 * Twitter - https://dev.twitter.com/
     * CONSUMER_KEY 
